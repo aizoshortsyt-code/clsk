@@ -1,329 +1,60 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CLSK</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #0b1020;
-        --panel: #121b2d;
-        --panel-2: #1a2740;
-        --accent: #5ab4ff;
-        --accent-2: #73e0a3;
-        --text: #eef6ff;
-        --muted: #9db2c9;
-        --danger: #ff7582;
-        --shadow: rgba(0,0,0,0.28);
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
-        color: var(--text);
-        font-family: Inter, Segoe UI, system-ui, sans-serif;
-      }
-
-      main {
-        max-width: 560px;
-        margin: 0 auto;
-        padding: 28px 18px 40px;
-      }
-
-      .card {
-        background: rgba(18, 27, 45, 0.96);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 22px;
-        box-shadow: 0 18px 40px var(--shadow);
-        overflow: hidden;
-      }
-
-      .hero {
-        padding: 22px 20px 12px;
-        background: linear-gradient(135deg, rgba(90,180,255,0.15), rgba(115,224,163,0.12));
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-
-      .pill {
-        display: inline-block;
-        background: rgba(90,180,255,0.18);
-        color: var(--accent);
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin: 12px 0 6px;
-        font-size: clamp(2rem, 5vw, 2.5rem);
-      }
-
-      .subtitle {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.5;
-      }
-
-      .body {
-        padding: 18px 20px 20px;
-      }
-
-      .profile {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 16px;
-        padding: 14px 16px;
-      }
-
-      .avatar {
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        color: #0b1020;
-      }
-
-      .profile-info {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .name {
-        font-size: 18px;
-        font-weight: 700;
-        margin: 0;
-      }
-
-      .meta {
-        color: var(--muted);
-        font-size: 13px;
-        margin-top: 3px;
-      }
-
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(115,224,163,0.12);
-        color: var(--accent-2);
-        border: 1px solid rgba(115,224,163,0.35);
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 12px;
-        font-weight: 700;
-      }
-
-      .status::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent-2);
-        box-shadow: 0 0 14px rgba(115,224,163,0.8);
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 18px;
-      }
-
-      .stat {
-        background: var(--panel-2);
-        border: 1px solid rgba(255,255,255,0.04);
-        border-radius: 16px;
-        padding: 12px 14px;
-      }
-
-      .stat-label {
-        color: var(--muted);
-        font-size: 12px;
-        margin-bottom: 10px;
-      }
-
-      .stat-value {
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1;
-      }
-
-      .actions {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      button {
-        appearance: none;
-        border: none;
-        border-radius: 14px;
-        padding: 14px 16px;
-        font-weight: 700;
-        font-size: 15px;
-        cursor: pointer;
-        transition: transform 0.15s ease, opacity 0.15s ease;
-      }
-
-      button:hover { transform: translateY(-1px); }
-      button:active { transform: translateY(0); }
-
-      .primary {
-        background: linear-gradient(135deg, var(--accent), #3f8df7);
-        color: white;
-      }
-
-      .secondary {
-        background: rgba(255,255,255,0.04);
-        color: var(--text);
-        border: 1px solid rgba(255,255,255,0.08);
-      }
-
-      .danger {
-        background: rgba(255,117,130,0.12);
-        color: #ffb3bc;
-        border: 1px solid rgba(255,117,130,0.25);
-      }
-
-      .note {
-        margin-top: 18px;
-        font-size: 12px;
-        line-height: 1.5;
-        color: var(--muted);
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <section class="card">
-        <div class="hero">
-          <span class="pill">CLSK</span>
-          <h1>Mini App</h1>
-          <p class="subtitle">Эффективный рабочий кабинет для задач, команд и KPI.</p>
-        </div>
-
-        <div class="body">
-          <div class="profile">
-            <div class="avatar" id="avatar">U</div>
-            <div class="profile-info">
-              <p class="name" id="user-name">Гость</p>
-              <div class="meta" id="user-meta">Telegram profile not loaded</div>
-            </div>
-            <div class="status" id="auth-status">guest</div>
-          </div>
-
-          <div class="grid">
-            <div class="stat">
-              <div class="stat-label">Команды</div>
-              <div class="stat-value">12</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Задачи</div>
-              <div class="stat-value">86</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Выполнено</div>
-              <div class="stat-value">64%</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Ожидает</div>
-              <div class="stat-value">31</div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="primary" id="start-btn">Начать работу</button>
-            <button class="secondary" id="profile-btn">Профиль</button>
-            <button class="danger" id="close-btn">Закрыть Mini App</button>
-          </div>
-
-          <div class="note" id="note">
-            Приложение готово к запуску. Если открыто внутри Telegram, будет использован профиль пользователя.
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script>
-      const tg = window.Telegram?.WebApp;
-      const userName = document.getElementById('user-name');
-      const userMeta = document.getElementById('user-meta');
-      const authStatus = document.getElementById('auth-status');
-      const avatar = document.getElementById('avatar');
-      const note = document.getElementById('note');
-
-      const fallbackName = 'Гость';
-
-      function setGuest() {
-        userName.textContent = fallbackName;
-        userMeta.textContent = 'Telegram profile not loaded';
-        authStatus.textContent = 'guest';
-        avatar.textContent = 'G';
-      }
-
-      async function loadTelegramUser() {
-        if (!tg) {
-          setGuest();
-          return;
-        }
-
-        tg.ready();
-        tg.expand();
-
-        const initData = tg.initData || '';
-
-        try {
-          const response = await fetch(`http://localhost:4000/api/me?initData=${encodeURIComponent(initData)}`);
-          const data = await response.json();
-
-          if (data.user) {
-            const user = data.user;
-            const firstName = user.first_name || user.username || 'Telegram';
-            const lastName = user.last_name || '';
-            const fullName = [firstName, lastName].filter(Boolean).join(' ');
-
-            userName.textContent = fullName || 'Telegram User';
-            userMeta.textContent = user.username ? `@${user.username}` : 'Telegram profile';
-            authStatus.textContent = 'verified';
-            avatar.textContent = (firstName || 'T').charAt(0).toUpperCase();
-            note.textContent = 'Telegram profile подтверждён сервером. Mini App готов к работе.';
-            return;
-          }
-        } catch (error) {
-          console.error('Telegram user load failed', error);
-        }
-
-        setGuest();
-      }
-
-      document.getElementById('start-btn').addEventListener('click', () => {
-        note.textContent = 'Начинаем работу: создана новая сессия CLSK.';
-      });
-
-      document.getElementById('profile-btn').addEventListener('click', () => {
-        note.textContent = 'Профиль: отображаем Telegram-пользователя и текущий режим доступа.';
-      });
-
-      document.getElementById('close-btn').addEventListener('click', () => {
-        if (tg?.close) tg.close();
-      });
-
-      loadTelegramUser();
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLSK Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root { color-scheme: dark; --bg:#09111f; --panel:#121f33; --panel2:#1b2d47; --text:#f4f8ff; --muted:#9bb0c8; --blue:#4da9ff; --green:#70e2a0; --red:#ff7885; }
+    * { box-sizing:border-box; } body { margin:0; min-height:100vh; background:radial-gradient(circle at 10% 0,#183b5f 0,transparent 36%),var(--bg); color:var(--text); font:15px Inter,Segoe UI,system-ui,sans-serif; }
+    main { width:min(100% - 32px,620px); margin:auto; padding:28px 0 42px; }
+    .brand { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; } .logo { font-size:28px; font-weight:900; letter-spacing:.08em; } .badge { color:var(--green); background:#70e2a01c; border:1px solid #70e2a055; border-radius:99px; padding:7px 11px; font-size:12px; }
+    .hero,.profile,.stat,.activity { background:linear-gradient(145deg,#14253b,#0f1b2d); border:1px solid #ffffff12; border-radius:22px; box-shadow:0 16px 40px #0004; }
+    .hero { padding:26px; margin-bottom:14px; } h1 { margin:0 0 8px; font-size:clamp(28px,7vw,42px); } .hero p { margin:0; color:var(--muted); line-height:1.55; }
+    .profile { padding:18px; display:flex; align-items:center; gap:14px; } .avatar { flex:0 0 58px; width:58px; height:58px; display:grid; place-items:center; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--green)); color:#071321; font-size:24px; font-weight:900; } .profile-main { min-width:0; flex:1; } .name { margin:0 0 4px; font-size:19px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } .meta { margin:0; color:var(--muted); font-size:13px; } .verified { color:var(--green); font-size:12px; margin-top:6px; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0; } .stat { padding:14px 10px; text-align:center; } .stat b { display:block; font-size:24px; margin-bottom:6px; } .stat span { color:var(--muted); font-size:11px; }
+    .actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; } button { border:0; border-radius:14px; padding:14px 12px; color:var(--text); background:var(--panel2); border:1px solid #ffffff14; font-weight:800; cursor:pointer; } button.primary { background:linear-gradient(135deg,var(--blue),#3478eb); } button.stop { background:#ff78851c; color:#ffadb5; } button:disabled { opacity:.5; cursor:wait; }
+    .activity { padding:17px; } .activity h2 { margin:0 0 8px; font-size:16px; } #message { margin:0; color:var(--muted); line-height:1.5; } .session { color:var(--green); font-size:13px; margin-top:8px; }
+    @media (max-width:420px) { .grid { grid-template-columns:repeat(2,1fr); } .actions { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand"><div class="logo">CLSK</div><div class="badge" id="mode">Подключение…</div></div>
+    <section class="hero"><h1>Рабочий кабинет</h1><p>Управляй командами, задачами и результатами в одном месте.</p></section>
+    <section class="profile"><div class="avatar" id="avatar">G</div><div class="profile-main"><p class="name" id="name">Гость</p><p class="meta" id="meta">Загрузка профиля…</p><div class="verified" id="verified">Проверяем Telegram-профиль</div></div></section>
+    <section class="grid"><div class="stat"><b id="teams">—</b><span>Команды</span></div><div class="stat"><b id="tasks">—</b><span>Задачи</span></div><div class="stat"><b id="completed">—</b><span>Выполнено %</span></div><div class="stat"><b id="pending">—</b><span>Ожидает</span></div></section>
+    <div class="actions"><button class="primary" id="start">Начать работу</button><button id="profile">Обновить профиль</button><button class="stop" id="stop">Остановить сессию</button><button id="close">Закрыть Mini App</button></div>
+    <section class="activity"><h2>Статус</h2><p id="message">Подключаемся к API…</p><div class="session" id="session"></div></section>
+  </main>
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.ready(); tg.expand(); }
+    const api = '__CLSK_API_URL__';
+    const initData = tg?.initData || '';
+    const $ = id => document.getElementById(id);
+    function render(data) {
+      const user = data.user;
+      const first = user?.first_name || user?.username || 'Гость';
+      $('name').textContent = user ? [first, user.last_name].filter(Boolean).join(' ') : 'Гость';
+      $('meta').textContent = user?.username ? '@' + user.username : user ? 'Telegram-профиль' : 'Открой приложение через Telegram для входа';
+      $('avatar').textContent = first[0].toUpperCase();
+      $('mode').textContent = data.mode === 'verified' ? 'Авторизован' : 'Гостевой режим';
+      $('verified').textContent = data.mode === 'verified' ? '✓ Профиль подтверждён сервером' : 'Гостевой режим — данные не привязаны к аккаунту';
+      $('teams').textContent = data.stats.teams; $('tasks').textContent = data.stats.tasks; $('completed').textContent = data.stats.completed; $('pending').textContent = data.stats.pending;
+      $('session').textContent = data.session.active ? '● Рабочая сессия активна' : '○ Рабочая сессия не запущена';
+      $('message').textContent = data.mode === 'verified' ? 'Профиль загружен. Доступ к рабочему кабинету открыт.' : 'Для персонального профиля открой Mini App из Telegram.';
+    }
+    async function request(path, method='GET') {
+      const options = { method, headers: {'Content-Type':'application/json'} };
+      if (method !== 'GET') options.body = JSON.stringify({initData});
+      const url = `${api}${path}${method === 'GET' ? '?initData=' + encodeURIComponent(initData) : ''}`;
+      const response = await fetch(url, options); const data = await response.json(); if (!response.ok) throw new Error(data.error || 'API error'); return data;
+    }
+    async function load() { try { render(await request('/api/me')); } catch (e) { $('message').textContent = 'API недоступен: ' + e.message; } }
+    async function action(path) { const button = event.currentTarget; button.disabled = true; try { const data = await request(path, 'POST'); render(data); $('message').textContent = data.message; } catch(e) { $('message').textContent = 'Ошибка: ' + e.message; } finally { button.disabled = false; } }
+    $('start').onclick = e => { event = e; action('/api/session/start'); }; $('stop').onclick = e => { event = e; action('/api/session/stop'); }; $('profile').onclick = load; $('close').onclick = () => tg?.close(); load();
+  </script>
+</body>
 </html>
