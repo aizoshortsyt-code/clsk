@@ -1,0 +1,7 @@
+{
+  "name": "@clsk/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"dev":"node src/server.mjs","start":"node src/server.mjs"}
+}
