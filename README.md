@@ -11,14 +11,27 @@ pnpm.cmd dev
 
 Откройте http://localhost:5173 и http://localhost:4000/health.
 
-Для PostgreSQL и Redis при наличии Docker:
+## Telegram Mini App
+
+1. Запусти Cloudflare Tunnel:
 
 ```powershell
-docker compose up -d
+.
+cloudflared.exe tunnel --url http://localhost:5173
 ```
 
-Для открытия Mini App в Telegram нужен публичный HTTPS URL. Например:
+2. Скопируй HTTPS URL вида `https://xxxxx.trycloudflare.com`.
+3. Открой бота в Telegram и подключи Mini App.
 
-```powershell
-cloudflared tunnel --url http://localhost:5173
+## API
+
+- `GET /health`
+- `GET /api/config`
+- `GET /api/me?initData=...`
+- `POST /api/me` with JSON `{ initData: "..." }`
+
+## Environment
+
+```env
+BOT_TOKEN=
 ```
